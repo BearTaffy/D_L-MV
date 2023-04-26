@@ -8,6 +8,9 @@ platums=500
 a=Canvas(root,width=garums,height=platums,bg='#4d4dff')
 a.pack()
 
+Charimg=PhotoImage(file="image.png")
+char=a.create_image(600,250,image=Charimg)
+
 virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#660066",font=('Helvetica',30))
 Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#660066",font=('Helvetica',20))
 Apgalvojums2=a.create_text(200,210,text="Cik daudz vingro katru dienu?",fill="#660066",font=('Helvetica',20))

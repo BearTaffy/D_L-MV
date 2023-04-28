@@ -13,12 +13,7 @@ bar_width = 0
 
 virsraksts2=infocanva.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
 go_back=infocanva.create_text(700,480,text="Atgriezties",fill="#660066",font=("Helvetica",20))
-#info1=infocanva.create_text(400,140,text="Šī spēle ir par mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info2=infocanva.create_text(380,200,text="Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info3=infocanva.create_text(400,270,text="Kā spēlēt?",fill="#660066",font=("Helvetica",20))
-#info3=infocanva.create_text(370,330,text="Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info4=infocanva.create_text(400,370,text="un šo faktoru sekas",fill="#660066",font=("Helvetica",20))
-rs = infocanva.create_text(400,200, text="Šī spēle ir par mentālo veselību. Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību.                     Kā spēlēt?             Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību un šo faktoru sekas.",width=400, fill="white",font=("helvetica",20))
+rs = infocanva.create_text(400,250, text="Šī spēle ir par mentālo veselību.\nŠajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību.\n                                        Kā spēlēt?\nMainot atbildes redzēsi, kā faktori ietekmē mentālo veselību un šo faktoru sekas.",width=800, fill="#660066",font=("helvetica",20))
 
 virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
 Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#660066",font=("Helvetica",20))

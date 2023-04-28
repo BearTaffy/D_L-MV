@@ -1,40 +1,36 @@
 from tkinter import*
-from tkinter import ttk
 
 root=Tk()
-root.title('Mentālā veselība')
+root.title("Mentālā veselība")
 garums=800 #x
 platums=500 #y
-a=Canvas(root,width=garums,height=platums,bg='#4d4dff')
+a=Canvas(root,width=garums,height=platums,bg="#4d4dff")
 a.pack()
-infocanva=Canvas(root,width=garums,height=platums,bg='#4d4dff')
+infocanva=Canvas(root,width=garums,height=platums,bg="#4d4dff")
 infocanva.pack_forget()
-Charimg=PhotoImage(file="image.png")
-char=a.create_image(600,250,image=Charimg)
+bar_width = 0
 
-virsraksts2=infocanva.create_text(400,50,text="Mentālā veselība",fill="#660066",font=('Helvetica',30))
-go_back=infocanva.create_text(700,480,text="Atgriezties",fill="#660066",font=('Helvetica',20))
-info1=infocanva.create_text(400,140,text="Šī spēle ir par mentālo veselību",fill="#660066",font=('Helvetica',20))
-info2=infocanva.create_text(380,200,text="Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību",fill="#660066",font=('Helvetica',20))
-info3=infocanva.create_text(400,270,text="Kā spēlēt?",fill="#660066",font=('Helvetica',20))
-info3=infocanva.create_text(370,330,text="Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību",fill="#660066",font=('Helvetica',20))
-info4=infocanva.create_text(400,370,text="un šo faktoru sekas",fill="#660066",font=('Helvetica',20))
 
-virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#660066",font=('Helvetica',30))
-Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#660066",font=('Helvetica',20))
-Apgalvojums2=a.create_text(200,210,text="Cik daudz vingro katru dienu?",fill="#660066",font=('Helvetica',20))
-Apgalvojums3=a.create_text(190,295,text="Kāds ir tavs stresa līmenis?",fill="#660066",font=('Helvetica',20))
-Apgalvojums4=a.create_text(165,375,text="Kā tev patīk sava vide?",fill="#660066",font=('Helvetica',20))
-info_bt=a.create_text(700,480,text="Informācija",fill="#660066",font=('Helvetica',20))
+virsraksts2=infocanva.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
+go_back=infocanva.create_text(700,480,text="Atgriezties",fill="#660066",font=("Helvetica",20))
+#info1=infocanva.create_text(400,140,text="Šī spēle ir par mentālo veselību",fill="#660066",font=("Helvetica",20))
+#info2=infocanva.create_text(380,200,text="Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
+#info3=infocanva.create_text(400,270,text="Kā spēlēt?",fill="#660066",font=("Helvetica",20))
+#info3=infocanva.create_text(370,330,text="Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
+#info4=infocanva.create_text(400,370,text="un šo faktoru sekas",fill="#660066",font=("Helvetica",20))
+rs = infocanva.create_text(400,200, text="Šī spēle ir par mentālo veselību. Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību.                     Kā spēlēt?             Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību un šo faktoru sekas.",width=400, fill="white",font=("helvetica",20))
 
-root.columnconfigure(0, weight=1)
-root.columnconfigure(1, weight=3)
+virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
+Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#660066",font=("Helvetica",20))
+Apgalvojums2=a.create_text(200,210,text="Cik daudz vingro katru dienu?",fill="#660066",font=("Helvetica",20))
+Apgalvojums3=a.create_text(190,295,text="Kāds ir tavs stresa līmenis?",fill="#660066",font=("Helvetica",20))
+Apgalvojums4=a.create_text(165,375,text="Kā tev patīk sava vide?",fill="#660066",font=("Helvetica",20))
+info_bt=a.create_text(700,480,text="Informācija",fill="#660066",font=("Helvetica",20))
 
-# slider value
-current_value1 = DoubleVar()
-current_value2 = DoubleVar()
-current_value3 = DoubleVar()
-current_value4= DoubleVar()
+def callback(event):
+    print( "clicked at", event.x, event.y)
+
+a.bind("<Button-1>", callback)
 
 def go_to_info():
     a.pack_forget()
@@ -43,71 +39,77 @@ def go_to_game():
     a.pack()
     infocanva.pack_forget()
 
-def get_current_value1():
-    return int(current_value1.get())
-def get_current_value2():
-    return int(current_value2.get())
-def get_current_value3():
-    return int(current_value3.get())
-def get_current_value4():
-    return int(current_value4.get())
+def update_bar(event):
+    global bar_width
+    value = slider1.get()
+    bar_width = value * 15
+    a.coords(bar,240, 170, 240 + bar_width, 190)
+
+def update_bar2(event):
+    global bar_width
+    value = slider2.get()
+    bar_width = value * 15
+    a.coords(bar2,240, 260, 240 + bar_width, 280)
+
+def update_bar3(event):
+    global bar_width
+    value = slider3.get()
+    bar_width = value * 15
+    a.coords(bar3,240, 335, 240 + bar_width, 355)
+
+def update_bar4(event):
+    global bar_width
+    value = slider4.get()
+    bar_width = value * 15
+    a.coords(bar4,240, 420, 240 + bar_width, 440)    
+
+style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4d4dff"}
 
 
-def slider_changed(event):
-    value_label1.configure(text=get_current_value1())
-    value_label2.configure(text=get_current_value2())
-    value_label3.configure(text=get_current_value3())
-    value_label4.configure(text=get_current_value4())
-    pbar1.configure(value=get_current_value1())
-    pbar2.configure(value=get_current_value2())
-    pbar3.configure(value=get_current_value3())
-    pbar4.configure(value=get_current_value4())
+#  sliders
 
-#  slider
-slider1 = ttk.Scale(root,from_=0,to=12,length=150,orient='horizontal',command=slider_changed,variable=current_value1)
-slider1.pack()
+slider1 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider1.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
+slider1.place(x=100, y=100)
 a.create_window(125, 175, window=slider1)
+slider1.config(showvalue=True, sliderlength=20,)
+slider1.set(6)
 
-slider2 = ttk.Scale(root,from_=0,to=12,length=150,orient='horizontal',command=slider_changed,variable=current_value2)
-slider2.pack()
+slider2 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider2.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
+slider2.place(x=100, y=100)
 a.create_window(125, 260, window=slider2)
+slider2.config(showvalue=True, sliderlength=20,)
+slider2.set(6)
 
-slider3 = ttk.Scale(root,from_=0,to=12,length=150,orient='horizontal',command=slider_changed,variable=current_value3)
-slider3.pack()
+slider3 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider3.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
+slider3.place(x=100, y=100)
 a.create_window(125, 335, window=slider3)
+slider3.config(showvalue=True, sliderlength=20,)
+slider3.set(6)
 
-slider4 = ttk.Scale(root,from_=0,to=12,length=150,orient='horizontal',command=slider_changed,variable=current_value4)
-slider4.pack()
+slider4 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider4.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
+slider4.place(x=100, y=100)
 a.create_window(125, 420, window=slider4)
+slider4.config(showvalue=True, sliderlength=20,)
+slider4.set(6)
 
 
-# value label
-value_label1 = ttk.Label(root,text=get_current_value1())
-value_label2 = ttk.Label(root,text=get_current_value2())
-value_label3 = ttk.Label(root,text=get_current_value3())
-value_label4 = ttk.Label(root,text=get_current_value4())
-value_label1.pack(side=LEFT)
-value_label2.pack(side=LEFT)
-value_label3.pack(side=LEFT)
-value_label4.pack(side=LEFT)
 
 
-style = ttk.Style(root)
-
-# Progressbar style
-style.configure('my.Vertical.TProgressbar', background='#f7f4bf', troughcolor='#8a7852',pbarrelief='flat', troughrelief='flat')
-
-pbar1 = ttk.Progressbar(root, maximum=12, value=get_current_value1(), orient='vertical', style='my.Vertical.TProgressbar')
-pbar1.pack(side=LEFT)
-pbar2 = ttk.Progressbar(root, maximum=12, value=get_current_value2(), orient='vertical', style='my.Vertical.TProgressbar')
-pbar2.pack(side=LEFT)
-pbar3 = ttk.Progressbar(root, maximum=12, value=get_current_value3(), orient='vertical', style='my.Vertical.TProgressbar')
-pbar3.pack(side=LEFT)
-pbar4 = ttk.Progressbar(root, maximum=12, value=get_current_value4(), orient='vertical', style='my.Vertical.TProgressbar')
-pbar4.pack(side=LEFT)
-
-a.tag_bind(info_bt,'<Button-1>', lambda event: go_to_info())
-infocanva.tag_bind(go_back,'<Button-1>', lambda event: go_to_game())
+# Progressbars
+bar = a.create_rectangle(240, 175, 240 + bar_width, 170, fill='white', outline='')
+bar2= a.create_rectangle(240, 260, 240 + bar_width, 260, fill='white', outline='')
+bar3= a.create_rectangle(240, 335, 240 + bar_width, 335, fill='white', outline='')
+bar4= a.create_rectangle(240, 420, 240 + bar_width, 420, fill='white', outline='')
+slider1.bind('<B1-Motion>', update_bar)
+slider2.bind('<B1-Motion>', update_bar2)
+slider3.bind('<B1-Motion>', update_bar3)
+slider4.bind('<B1-Motion>', update_bar4)
+a.tag_bind(info_bt,"<Button-1>", lambda event: go_to_info())
+infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_game())
 
 root.configure()
 root.mainloop()

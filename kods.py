@@ -51,7 +51,6 @@ def go_to_game():
 def go_to_home_from_game():
      gamecanva.pack_forget()
      a.pack()
-
 def update_bar(event):
     global bar_width
     value = slider1.get()
@@ -74,9 +73,22 @@ def update_bar4(event):
     global bar_width
     value = slider4.get()
     bar_width = value * 15
-    a.coords(bar4,240, 420, 240 + bar_width, 440)    
+    a.coords(bar4,240, 420, 240 + bar_width, 440)   
 
+def sleep():
+    red="Tu guli pārāk maz katru nakti, tev būtu jāguļ 7-9 stundas.     Pārliecinieties, vai dienas laikā iegūstat pietiekami daudz saules gaismas, nedzer dzērienus, kuros ir   kofeīnu, pārāk tuvu gulētiešanas laikam. Ekrāna laika ierobežošana pirms miega var arī palīdzēt samazināt miega problēmas."
+    yelow="Tu guli pārāk daudz tev būtu jāguļ 7-9 stundas.  Tas var šķist vienkārši, bet viens, ko var darīt, ir ievērot noteiktu gulēšanas laiku un pamošanās laiku sev. Tas var palīdzēt ķermenim izveidot savu rutīnu, tādējādi palīdzot izvairīties no pārāk liela vai pārāk maza miega.    Ja vēlies labāk izgulēties, būtiski ir pārliecināties, vai istabā ir tumšs. Lai ir klusums un arī telpas temperatūra ir jums patīkama. Ja ir par karstu vai par aukstu, tad izredzes, ka īpaši labi neizgulēsies. "
+    green="Tu guli  pietiekami daudz un nekas nav jāmaina. Tā turpini!"
+    block=gamecanva.create_rectangle(550,10,750,500,fill="white")
+    if slider1.get()<=6:
+        sleep_tx=gamecanva.create_text(550,495,text=red,width=200, fill="white",font=("helvetica",20))
+    elif 7<=slider1.get()<=9:
+        sleep_tx=gamecanva.create_text(550,480,text=green,width=200, fill="white",font=("helvetica",20))
+    elif 9<slider1.get()<=12:
+        sleep_tx=gamecanva.create_text(780,480,text=yelow,width=200, fill="white",font=("helvetica",20))
+        
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4d4dff"}
+
 
 
 #  sliders

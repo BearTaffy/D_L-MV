@@ -34,6 +34,7 @@ game_bt=a.create_text(680,450,text="Redzēt rezultātus",fill="#660066",font=("H
 # game canva
 go_back_home=gamecanva.create_text(650,480,text="Atpakaļ uz jautājumiem",fill="#660066",font=("Helvetica",20))
 sleep1=gamecanva.create_text(50,50,text="Miegs")
+gym1=gamecanva.create_text(50,75,text="Vingrošana")
 def callback(event):
     print( "clicked at", event.x, event.y)
 
@@ -76,16 +77,29 @@ def update_bar4(event):
     a.coords(bar4,240, 420, 240 + bar_width, 440)   
 
 def sleep():
-    red="Tu guli pārāk maz katru nakti, tev būtu jāguļ 7-9 stundas.     Pārliecinieties, vai dienas laikā iegūstat pietiekami daudz saules gaismas, nedzer dzērienus, kuros ir   kofeīnu, pārāk tuvu gulētiešanas laikam. Ekrāna laika ierobežošana pirms miega var arī palīdzēt samazināt miega problēmas."
-    yelow="Tu guli pārāk daudz tev būtu jāguļ 7-9 stundas.  Tas var šķist vienkārši, bet viens, ko var darīt, ir ievērot noteiktu gulēšanas laiku un pamošanās laiku sev. Tas var palīdzēt ķermenim izveidot savu rutīnu, tādējādi palīdzot izvairīties no pārāk liela vai pārāk maza miega.    Ja vēlies labāk izgulēties, būtiski ir pārliecināties, vai istabā ir tumšs. Lai ir klusums un arī telpas temperatūra ir jums patīkama. Ja ir par karstu vai par aukstu, tad izredzes, ka īpaši labi neizgulēsies. "
-    green="Tu guli  pietiekami daudz un nekas nav jāmaina. Tā turpini!"
-    if slider1.get()<=6:
-        sleep_tx=gamecanva.create_text(550,495,text=red,width=200, fill="white",font=("helvetica",15))
-    elif 7<=slider1.get()<=9:
-        sleep_tx=gamecanva.create_text(550,480,text=green,width=200, fill="white",font=("helvetica",15))
-    elif 9<slider1.get()<=12:
-        sleep_tx=gamecanva.create_text(780,480,text=yelow,width=200, fill="white",font=("helvetica",15))
-    block=gamecanva.create_rectangle(550,10,750,500,fill="white") 
+    red1 = "Tu guli pārāk maz katru nakti, tev būtu jāguļ 7-9 stundas. Pārliecinieties, vai dienas laikā iegūstat pietiekami daudz saules gaismas, nedzer dzērienus, kuros ir kofeīnu, pārāk tuvu gulētiešanas laikam. Ekrāna laika ierobežošana pirms miega var arī palīdzēt samazināt miega problēmas."
+    yellow1 = "Tu guli pārāk daudz tev būtu jāguļ 7-9 stundas. Tas var šķist vienkārši, bet viens, ko var darīt, ir ievērot noteiktu gulēšanas laiku un pamošanās laiku sev. Tas var palīdzēt ķermenim izveidot savu rutīnu, tādējādi palīdzot izvairīties no pārāk liela vai pārāk maza miega. Ja vēlies labāk izgulēties, būtiski ir pārliecināties, vai istabā ir tumšs. Lai ir klusums un arī telpas temperatūra ir jums patīkama. Ja ir par karstu vai par aukstu, tad izredzes, ka īpaši labi neizgulēsies."
+    green1 = "Tu guli pietiekami daudz un nekas nav jāmaina. Tā turpini!"
+    block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
+    if slider1.get() <= 6:
+        sleep_tx = gamecanva.create_text(650, 250, text=red1, width=200, fill="black", font=("helvetica", 15))
+    elif 7 <= slider1.get() <= 9:
+        sleep_tx = gamecanva.create_text(650, 250, text=green1, width=200, fill="black", font=("helvetica", 15))
+    elif 9 < slider1.get() <= 12:
+        sleep_tx = gamecanva.create_text(650, 250, text=yellow1, width=200, fill="black", font=("helvetica", 12))
+
+def gym():
+    red2="Tu vingro par maz. Tev dienā vajag vingrot vismaz 30 minūtes. Vingrot var arī mājās bez speciāla inventāra."
+    green2="Tu vingro pietiekami daudz! Tā turpini!"
+    yellow2="Tu vingro ļoti daudz, esi uzmanīgs, lai nepārslogotu sevi."
+    block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
+    if slider2.get() <=0:
+        gym_tx = gamecanva.create_text(650, 250, text=red2, width=200, fill="black", font=("helvetica", 15))
+    elif 0<= slider2.get() <=1:
+        gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
+    elif 2< slider1.get() <= 12:
+        gym_tx = gamecanva.create_text(650, 250, text=yellow2, width=200, fill="black", font=("helvetica", 15))
+
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4d4dff"}
 
 
@@ -138,6 +152,7 @@ infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_home())
 a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
 gamecanva.tag_bind(sleep1,"<Button-1>",lambda event: sleep())
+gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())
 
 root.configure()
 root.mainloop()

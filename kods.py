@@ -36,6 +36,7 @@ go_back_home=gamecanva.create_text(650,480,text="Atpakaļ uz jautājumiem",fill=
 sleep1=gamecanva.create_text(50,50,text="Miegs")
 gym1=gamecanva.create_text(50,75,text="Vingrošana")
 stress1=gamecanva.create_text(50,100,text="Stress")
+vide1=gamecanva.create_text(50,125,text="Vide")
 def callback(event):
     print( "clicked at", event.x, event.y)
 
@@ -114,6 +115,18 @@ def stress():
     elif 2== slider3.get() or slider3.get() <=6:
         stress_tx = gamecanva.create_text(650, 250, text=yellow3, width=200, fill="black", font=("helvetica", 15))
 
+def vide():
+    red4="Ja tev nepatīk sava vide. Tā ir jāmaina ar paša spēkiem vai ar citu palīdzību."
+    green4="Tas ir labi, ka tev patīk sava vide. Tava vide tevi ļoti ietekmē, ja tev nepatīk sava vide tā var ietekmēt tavas mācības."
+    yellow4="Skaties, ko tu vari uzlabot vai mainīt savā vidē, jo tai ir liels iespaids uz tevi."
+    block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
+    if 7<=slider4.get() and slider4.get() <=10:
+        stress_tx = gamecanva.create_text(650, 250, text=green4, width=200, fill="black", font=("helvetica", 15))
+    elif 0== slider4.get() or slider4.get() <=2:
+        stress_tx = gamecanva.create_text(650, 250, text=red4, width=200, fill="black", font=("helvetica", 15))
+    elif 2== slider4.get() or slider4.get() <=6:
+        stress_tx = gamecanva.create_text(650, 250, text=yellow4, width=200, fill="black", font=("helvetica", 15))
+
 
 
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4d4dff"}
@@ -143,7 +156,7 @@ a.create_window(125, 335, window=slider3)
 slider3.config(showvalue=True, sliderlength=20,)
 slider3.set(6)
 
-slider4 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider4 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider4.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider4.place(x=100, y=100)
 a.create_window(125, 420, window=slider4)
@@ -176,6 +189,7 @@ gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game(
 gamecanva.tag_bind(sleep1,"<Button-1>",lambda event: sleep())
 gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())
 gamecanva.tag_bind(stress1,"<Button-1>",lambda event: stress())
+gamecanva.tag_bind(vide1,"<Button-1>",lambda event: vide())
 
 root.configure()
 root.mainloop()

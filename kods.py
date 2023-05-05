@@ -35,11 +35,12 @@ game_bt=a.create_text(680,450,text="Redzēt rezultātus",fill="#660066",font=("H
 go_back_home=gamecanva.create_text(650,480,text="Atpakaļ uz jautājumiem",fill="#660066",font=("Helvetica",20))
 sleep1=gamecanva.create_text(50,50,text="Miegs")
 gym1=gamecanva.create_text(50,75,text="Vingrošana")
+stress1=gamecanva.create_text(50,100,text="Stress")
 def callback(event):
     print( "clicked at", event.x, event.y)
 
 a.bind("<Button-1>", callback)
-
+# Functions that move from one canvas to another
 def go_to_info():
     a.pack_forget()
     infocanva.pack()
@@ -52,6 +53,7 @@ def go_to_game():
 def go_to_home_from_game():
      gamecanva.pack_forget()
      a.pack()
+
 def update_bar(event):
     global bar_width
     value = slider1.get()
@@ -75,7 +77,7 @@ def update_bar4(event):
     value = slider4.get()
     bar_width = value * 15
     a.coords(bar4,240, 420, 240 + bar_width, 440)   
-
+# the functions that are the ones that show the results
 def sleep():
     red1 = "Tu guli pārāk maz katru nakti, tev būtu jāguļ 7-9 stundas. Pārliecinieties, vai dienas laikā iegūstat pietiekami daudz saules gaismas, nedzer dzērienus, kuros ir kofeīnu, pārāk tuvu gulētiešanas laikam. Ekrāna laika ierobežošana pirms miega var arī palīdzēt samazināt miega problēmas."
     yellow1 = "Tu guli pārāk daudz tev būtu jāguļ 7-9 stundas. Tas var šķist vienkārši, bet viens, ko var darīt, ir ievērot noteiktu gulēšanas laiku un pamošanās laiku sev. Tas var palīdzēt ķermenim izveidot savu rutīnu, tādējādi palīdzot izvairīties no pārāk liela vai pārāk maza miega. Ja vēlies labāk izgulēties, būtiski ir pārliecināties, vai istabā ir tumšs. Lai ir klusums un arī telpas temperatūra ir jums patīkama. Ja ir par karstu vai par aukstu, tad izredzes, ka īpaši labi neizgulēsies."
@@ -93,12 +95,26 @@ def gym():
     green2="Tu vingro pietiekami daudz! Tā turpini!"
     yellow2="Tu vingro ļoti daudz, esi uzmanīgs, lai nepārslogotu sevi."
     block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
-    if slider2.get() <=0:
+    if slider2.get() ==0:
         gym_tx = gamecanva.create_text(650, 250, text=red2, width=200, fill="black", font=("helvetica", 15))
-    elif 0<= slider2.get() <=1:
+    elif  slider2.get() <=1:
         gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
-    elif 2< slider1.get() <= 12:
+    elif 2< slider2.get() <= 12:
         gym_tx = gamecanva.create_text(650, 250, text=yellow2, width=200, fill="black", font=("helvetica", 15))
+
+def stress():
+    red3="Tev ir pārāk liels stress tev var būt sāpes krūtīs un paaugstināts asinsspiediens, gremošanas traucējumi. Esi aktīvs. Praktiski jebkura veida fiziskās aktivitātes var darboties kā stresa mazinātājs. Komunicē ar citiem, klausies nomierinošu mūziku."
+    green3="Kad esat bez stresa, jūs bieži domājat daudz skaidrāk, esat labāk sagatavots, lai pieņemtu pareizos lēmumus, un jums ir daudz pozitīvāks skatījums uz apkārt notiekošo – gan darbā, gan mājās."
+    yellow3="Esi aktīvs. Praktiski jebkura veida fiziskās aktivitātes var darboties kā stresa mazinātājs. Komunicē ar citiem, klausies nomierinošu mūziku."
+    block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
+    if 7<=slider3.get() and slider3.get() <=10:
+        stress_tx = gamecanva.create_text(650, 250, text=red3, width=200, fill="black", font=("helvetica", 15))
+    elif 0== slider3.get() or slider3.get() <=2:
+        stress_tx = gamecanva.create_text(650, 250, text=green3, width=200, fill="black", font=("helvetica", 15))
+    elif 2== slider3.get() or slider3.get() <=6:
+        stress_tx = gamecanva.create_text(650, 250, text=yellow3, width=200, fill="black", font=("helvetica", 15))
+
+
 
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4d4dff"}
 
@@ -120,7 +136,7 @@ a.create_window(125, 260, window=slider2)
 slider2.config(showvalue=True, sliderlength=20,)
 slider2.set(6)
 
-slider3 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
+slider3 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider3.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider3.place(x=100, y=100)
 a.create_window(125, 335, window=slider3)
@@ -146,13 +162,20 @@ slider1.bind('<B1-Motion>', update_bar)
 slider2.bind('<B1-Motion>', update_bar2)
 slider3.bind('<B1-Motion>', update_bar3)
 slider4.bind('<B1-Motion>', update_bar4)
+# Hideing the progressbars
+a.itemconfigure(bar,state="hidden")
+a.itemconfigure(bar2,state="hidden")
+a.itemconfigure(bar3,state="hidden")
+a.itemconfigure(bar4,state="hidden")
 # Buttons that move from one canvas to another canvas
 a.tag_bind(info_bt,"<Button-1>", lambda event: go_to_info())
 infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_home())
 a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
+# Buttons that show the results
 gamecanva.tag_bind(sleep1,"<Button-1>",lambda event: sleep())
 gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())
+gamecanva.tag_bind(stress1,"<Button-1>",lambda event: stress())
 
 root.configure()
 root.mainloop()

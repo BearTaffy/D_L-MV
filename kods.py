@@ -25,9 +25,11 @@ rs = infocanva.create_text(400,200, text="Šī spēle ir par mentālo veselību.
 # home canva
 virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
 Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#660066",font=("Helvetica",20))
-Apgalvojums2=a.create_text(200,210,text="Cik daudz vingro katru dienu?",fill="#660066",font=("Helvetica",20))
-Apgalvojums3=a.create_text(190,295,text="Kāds ir tavs stresa līmenis?",fill="#660066",font=("Helvetica",20))
-Apgalvojums4=a.create_text(165,375,text="Kā tev patīk sava vide?",fill="#660066",font=("Helvetica",20))
+Apgalvojums2=a.create_text(190,210,text="Vai tu vingro katru dienu?",fill="#660066",font=("Helvetica",20))
+Apgalvojums2_ja=a.create_text(90,240,text="Jā",fill="#660066",font=("Helvetica",20))
+Apgalvojums2_ne=a.create_text(180,240,text="Nē",fill="#660066",font=("Helvetica",20))
+Apgalvojums3=a.create_text(190,320,text="Kāds ir tavs stresa līmenis?",fill="#660066",font=("Helvetica",20))
+Apgalvojums4=a.create_text(165,400,text="Kā tev patīk sava vide?",fill="#660066",font=("Helvetica",20))
 info_bt=a.create_text(700,480,text="Informācija",fill="#660066",font=("Helvetica",20))
 game_bt=a.create_text(680,450,text="Redzēt rezultātus",fill="#660066",font=("Helvetica",20))
 
@@ -78,6 +80,13 @@ def update_bar4(event):
     value = slider4.get()
     bar_width = value * 15
     a.coords(bar4,240, 420, 240 + bar_width, 440)   
+# functions that show the slider for gym
+def yes():
+    a.itemconfigure(slidder2_s,state="normal")
+def no():
+    a.itemconfigure(slidder2_s,state="hidden")
+
+
 # the functions that are the ones that show the results
 def sleep():
     red1 = "Tu guli pārāk maz katru nakti, tev būtu jāguļ 7-9 stundas. Pārliecinieties, vai dienas laikā iegūstat pietiekami daudz saules gaismas, nedzer dzērienus, kuros ir kofeīnu, pārāk tuvu gulētiešanas laikam. Ekrāna laika ierobežošana pirms miega var arī palīdzēt samazināt miega problēmas."
@@ -145,21 +154,21 @@ slider1.set(6)
 slider2 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
 slider2.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider2.place(x=100, y=100)
-a.create_window(125, 260, window=slider2)
+slidder2_s=a.create_window(125, 285, window=slider2)
 slider2.config(showvalue=True, sliderlength=20,)
 slider2.set(6)
 
 slider3 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider3.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider3.place(x=100, y=100)
-a.create_window(125, 335, window=slider3)
+a.create_window(125, 360, window=slider3)
 slider3.config(showvalue=True, sliderlength=20,)
 slider3.set(6)
 
 slider4 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider4.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider4.place(x=100, y=100)
-a.create_window(125, 420, window=slider4)
+a.create_window(125, 445, window=slider4)
 slider4.config(showvalue=True, sliderlength=20,)
 slider4.set(6)
 
@@ -180,11 +189,16 @@ a.itemconfigure(bar,state="hidden")
 a.itemconfigure(bar2,state="hidden")
 a.itemconfigure(bar3,state="hidden")
 a.itemconfigure(bar4,state="hidden")
+# hideing the gym slider
+a.itemconfigure(slidder2_s,state="hidden")
 # Buttons that move from one canvas to another canvas
 a.tag_bind(info_bt,"<Button-1>", lambda event: go_to_info())
 infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_home())
 a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
+# Buttons that show and hide the gym slider
+a.tag_bind(Apgalvojums2_ja,"<Button-1>",lambda event: yes())
+a.tag_bind(Apgalvojums2_ne,"<Button-1>",lambda event: no())
 # Buttons that show the results
 gamecanva.tag_bind(sleep1,"<Button-1>",lambda event: sleep())
 gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())

@@ -31,6 +31,9 @@ Apgalvojums2_ne=a.create_text(180,240,text="Nē",fill="#660066",font=("Helvetica
 Apgalvojums3=a.create_text(190,320,text="Kāds ir tavs stresa līmenis?",fill="#660066",font=("Helvetica",20))
 Apgalvojums4=a.create_text(165,400,text="Kā tev patīk sava vide?",fill="#660066",font=("Helvetica",20))
 Apgalvojums5=a.create_text(290,530,text="Cik daudz laika(stundas) ikdienā veltāt sociālajiem medijiem vai digitālajām ierīcēm?",fill="#660066",font=("Helvetica",20),width=600)
+Apgalvojums6=a.create_text(220,620,text="Vai pret tevi, kāds dara mobingu?",fill="#660066",font=("Helvetica",20))
+Apgalvojums6_ja=a.create_text(90,660,text="Jā",fill="#660066",font=("Helvetica",20))
+Apgalvojums6_ne=a.create_text(180,660,text="Nē",fill="#660066",font=("Helvetica",20))
 info_bt=a.create_text(700,platums-20,text="Informācija",fill="#660066",font=("Helvetica",20))
 game_bt=a.create_text(680,platums-50,text="Redzēt rezultātus",fill="#660066",font=("Helvetica",20))
 
@@ -41,6 +44,7 @@ gym1=gamecanva.create_text(70,100,text="Vingrošana",fill="#660066",font=("Helve
 stress1=gamecanva.create_text(70,150,text="Stress",fill="#660066",font=("Helvetica",20))
 vide1=gamecanva.create_text(70,200,text="Vide",fill="#660066",font=("Helvetica",20))
 screen_time1=gamecanva.create_text(100,250,text="Digitālās ierīces",fill="#660066",font=("Helvetica",20))
+mobings1=gamecanva.create_text(100,300,text="Mobings",fill="#660066",font=("Helvetica",20))
 def callback(event):
     print( "clicked at", event.x, event.y)
 
@@ -88,11 +92,17 @@ def update_bar5(event):
     value = slider5.get()
     bar_width = value * 15
     a.coords(bar5,240, 420, 240 + bar_width, 440)   
-# functions that show the slider for gym
+# functions that show the slider for gym and the othe yes or no
 def yes():
     a.itemconfigure(slidder2_s,state="normal")
 def no():
     a.itemconfigure(slidder2_s,state="hidden")
+def yes_m():
+    mobings=1
+    return mobings
+def no_m():
+    mobings=2
+    return mobings
 
 
 # the functions that are the ones that show the results
@@ -155,7 +165,14 @@ def screen_time():
         screen_time_tx = gamecanva.create_text(650, 250, text=yellow5, width=200, fill="black", font=("helvetica", 15))
     elif 7< slider5.get() and slider5.get() >=15:
         screen_time_tx = gamecanva.create_text(650, 250, text=red5, width=200, fill="black", font=("helvetica", 15))
-
+def mobings():
+    green6="Tas labi ka pret tevi neviens nedara mobingu!"
+    red6="Ja pats nevari tikt galā ar mobingu, tad lūdzu palīdzību draugiem, vecākiem un skolotājiem!"
+    block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
+    if 0+yes_m()==1:
+        mobings_tx = gamecanva.create_text(650, 250, text=red6, width=200, fill="black", font=("helvetica", 15))
+    elif no_m()==2:
+        mobings_tx = gamecanva.create_text(650, 250, text=green6, width=200, fill="black", font=("helvetica", 15))
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#b366ff"}
 
 
@@ -224,15 +241,18 @@ a.tag_bind(info_bt,"<Button-1>", lambda event: go_to_info())
 infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_home())
 a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
-# Buttons that show and hide the gym slider
+# Buttons that show and hide the gym slider and the other yes or no
 a.tag_bind(Apgalvojums2_ja,"<Button-1>",lambda event: yes())
 a.tag_bind(Apgalvojums2_ne,"<Button-1>",lambda event: no())
+a.tag_bind(Apgalvojums6_ja,"<Button-1>",lambda event: yes_m())
+a.tag_bind(Apgalvojums6_ne,"<Button-1>",lambda event: no_m())
 # Buttons that show the results
 gamecanva.tag_bind(sleep1,"<Button-1>",lambda event: sleep())
 gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())
 gamecanva.tag_bind(stress1,"<Button-1>",lambda event: stress())
 gamecanva.tag_bind(vide1,"<Button-1>",lambda event: vide())
 gamecanva.tag_bind(screen_time1,"<Button-1>",lambda event: screen_time() )
+gamecanva.tag_bind(mobings1,"<Button-1>",lambda event: mobings())
 
 
 root.configure()

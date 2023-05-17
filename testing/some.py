@@ -2,19 +2,14 @@ from tkinter import*
 
 root=Tk()
 root.title("Mentālā veselība")
-
 garums=800 #x
 platums=700 #y
-
 a=Canvas(root,width=garums,height=platums,bg="#4169E1")
 a.pack()
-
 infocanva=Canvas(root,width=garums,height=platums,bg="#4169E1")
 infocanva.pack_forget()
-
 gamecanva=Canvas(root,width=garums,height=platums,bg="#4169E1")
 gamecanva.pack_forget()
-
 bar_width = 0
 
 health_Head = -2
@@ -45,29 +40,30 @@ rs = infocanva.create_text(400,250, text="Šī spēle ir par mentālo veselību.
 # home canva
 virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#CCCCCC",font=("Helvetica",30))
 Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#CCCCCC",font=("Helvetica",20))
-Apgalvojums2=a.create_text(200,220,text="Cik stundas nedeļa tu vingro?",fill="#CCCCCC",font=("Helvetica",20))
+Apgalvojums2=a.create_text(105,220,text="Vai tu vingro?",fill="#CCCCCC",font=("Helvetica",20))
+Apgalvojums2_ja=a.create_text(90,260,text="Jā",fill="#CCCCCC",font=("Helvetica",20))
+Apgalvojums2_ne=a.create_text(180,260,text="Nē",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums3=a.create_text(190,320,text="Kāds ir tavs stresa līmenis?",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums4=a.create_text(165,400,text="Kā tev patīk sava vide?",fill="#CCCCCC",font=("Helvetica",20))
-Apgalvojums5=a.create_text(305,510,text="Cik stundas ikdienā veltāt digitālajām ierīcēm?",fill="#CCCCCC",font=("Helvetica",20))
-Apgalvojums6=a.create_text(225,610,text="Vai pret tevi, kāds dara mobingu?",fill="#CCCCCC",font=("Helvetica",20))
+Apgalvojums5=a.create_text(290,530,text="Cik daudz laika(stundas) ikdienā veltāt sociālajiem medijiem vai digitālajām ierīcēm?",fill="#CCCCCC",font=("Helvetica",20),width=600)
+Apgalvojums6=a.create_text(220,620,text="Vai pret tevi, kāds dara mobingu?",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums6_ja=a.create_text(90,660,text="Jā",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums6_ne=a.create_text(180,660,text="Nē",fill="#CCCCCC",font=("Helvetica",20))
-info_bt=a.create_text(680,platums-20,text="Informācija",fill="#CCCCCC",font=("Helvetica",20))
+info_bt=a.create_text(700,platums-20,text="Informācija",fill="#CCCCCC",font=("Helvetica",20))
 game_bt=a.create_text(680,platums-50,text="Redzēt rezultātus",fill="#CCCCCC",font=("Helvetica",20))
 
 # game canva
 go_back_home=gamecanva.create_text(650,platums-20,text="Atpakaļ uz jautājumiem",fill="#CCCCCC",font=("Helvetica",20))
 sleep1=gamecanva.create_text(70,50,text="Miegs",fill="#CCCCCC",font=("Helvetica",20))
-gym1=gamecanva.create_text(100,100,text="Vingrošana",fill="#CCCCCC",font=("Helvetica",20))
+gym1=gamecanva.create_text(70,100,text="Vingrošana",fill="#CCCCCC",font=("Helvetica",20))
 stress1=gamecanva.create_text(70,150,text="Stress",fill="#CCCCCC",font=("Helvetica",20))
-vide1=gamecanva.create_text(60,200,text="Vide",fill="#CCCCCC",font=("Helvetica",20))
-screen_time1=gamecanva.create_text(128,250,text="Digitālās ierīces",fill="#CCCCCC",font=("Helvetica",20))
-mobings1=gamecanva.create_text(85,300,text="Mobings",fill="#CCCCCC",font=("Helvetica",20))
-
+vide1=gamecanva.create_text(70,200,text="Vide",fill="#CCCCCC",font=("Helvetica",20))
+screen_time1=gamecanva.create_text(100,250,text="Digitālās ierīces",fill="#CCCCCC",font=("Helvetica",20))
+mobings1=gamecanva.create_text(100,300,text="Mobings",fill="#CCCCCC",font=("Helvetica",20))
 def callback(event):
     print( "clicked at", event.x, event.y)
 
-gamecanva.bind("<Button-1>", callback)
+a.bind("<Button-1>", callback)
 
 # Functions that move from one canvas to another
 def go_to_info():
@@ -114,34 +110,40 @@ def update_bar(event):
     global bar_width
     value = slider1.get()
     bar_width = value * 15
-    gamecanva.coords(bar,25, 450, 25 + bar_width, 470)
+    a.coords(bar,240, 170, 240 + bar_width, 190)
 
 def update_bar2(event):
     global bar_width
     value = slider2.get()
     bar_width = value * 15
-    gamecanva.coords(bar2,25, 500, 25 + bar_width, 520)
+    a.coords(bar2,240, 260, 240 + bar_width, 280)
 
 def update_bar3(event):
     global bar_width
     value = slider3.get()
     bar_width = value * 15
-    gamecanva.coords(bar3,25, 550, 25 + bar_width, 570)
+    a.coords(bar3,240, 335, 240 + bar_width, 355)
 
 def update_bar4(event):
     global bar_width
     value = slider4.get()
     bar_width = value * 15
-    gamecanva.coords(bar4,25, 600, 25 + bar_width, 620)   
+    a.coords(bar4,240, 420, 240 + bar_width, 440)   
 
 def update_bar5(event):
     global bar_width
     value = slider5.get()
     bar_width = value * 15
-    gamecanva.coords(bar5,25, 650, 25 + bar_width, 670)   
+    a.coords(bar5,240, 420, 240 + bar_width, 440)   
 
 # functions that show the slider for gym and the othe yes or no
+def yes():
+    a.itemconfigure(slidder2_s,state="normal")
+    a.itemconfigure(Apgalvojums2_ja,state="hidden")
+    a.itemconfigure(Apgalvojums2_ne,state="hidden")
 
+def no():
+    a.itemconfigure(slidder2_s,state="hidden")
 def yes_m():
     mobings=1
     return mobings
@@ -229,46 +231,60 @@ slider1.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider1.place(x=100, y=100)
 a.create_window(125, 175, window=slider1)
 slider1.config(showvalue=True, sliderlength=20,)
+slider1.set(6)
 
 slider2 = Scale(root, from_=0, to=12, orient=HORIZONTAL, length=200, **style)
 slider2.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider2.place(x=100, y=100)
 slidder2_s=a.create_window(125, 265, window=slider2)
 slider2.config(showvalue=True, sliderlength=20,)
+slider2.set(6)
 
 slider3 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider3.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider3.place(x=100, y=100)
 a.create_window(125, 355, window=slider3)
 slider3.config(showvalue=True, sliderlength=20,)
+slider3.set(6)
 
 slider4 = Scale(root, from_=0, to=10, orient=HORIZONTAL, length=200, **style)
 slider4.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider4.place(x=100, y=100)
 a.create_window(125, 445, window=slider4)
 slider4.config(showvalue=True, sliderlength=20,)
+slider4.set(6)
 
 slider5 = Scale(root, from_=0, to=15, orient=HORIZONTAL, length=200, **style)
 slider5.config(troughcolor='#505050', sliderrelief='flat', highlightthickness=0)
 slider5.place(x=100, y=100)
-a.create_window(125, 550, window=slider5)
+a.create_window(125, 580, window=slider5)
 slider5.config(showvalue=True, sliderlength=20,)
+slider5.set(6)
 
 
 
 
 # Progressbars
-bar = gamecanva.create_rectangle(25, 450, 25 + bar_width, 450, fill='white', outline='')
-bar2= gamecanva.create_rectangle(25, 500, 25 + bar_width, 500, fill='white', outline='')
-bar3= gamecanva.create_rectangle(25, 550, 25 + bar_width, 550, fill='white', outline='')
-bar4= gamecanva.create_rectangle(25, 600, 25 + bar_width, 600, fill='white', outline='')
-bar5= gamecanva.create_rectangle(25, 650, 25 + bar_width, 650, fill='white', outline='')
+bar = a.create_rectangle(240, 175, 240 + bar_width, 170, fill='white', outline='')
+bar2= a.create_rectangle(240, 260, 240 + bar_width, 260, fill='white', outline='')
+bar3= a.create_rectangle(240, 335, 240 + bar_width, 335, fill='white', outline='')
+bar4= a.create_rectangle(240, 420, 240 + bar_width, 420, fill='white', outline='')
+bar5= a.create_rectangle(240, 420, 240 + bar_width, 420, fill='white', outline='')
 slider1.bind('<B1-Motion>', update_bar)
 slider2.bind('<B1-Motion>', update_bar2)
 slider3.bind('<B1-Motion>', update_bar3)
 slider4.bind('<B1-Motion>', update_bar4)
 slider5.bind('<B1-Motion>', update_bar5)
 
+# Hideing the progressbars
+a.itemconfigure(bar,state="hidden")
+a.itemconfigure(bar2,state="hidden")
+a.itemconfigure(bar3,state="hidden")
+a.itemconfigure(bar4,state="hidden")
+a.itemconfigure(bar5,state="hidden")
+
+# hideing the gym slider
+a.itemconfigure(slidder2_s,state="hidden")
 
 # Buttons that move from one canvas to another canvas
 a.tag_bind(info_bt,"<Button-1>", lambda event: go_to_info())
@@ -277,6 +293,8 @@ a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
 
 # Buttons that show and hide the gym slider and the other yes or no
+a.tag_bind(Apgalvojums2_ja,"<Button-1>",lambda event: yes())
+a.tag_bind(Apgalvojums2_ne,"<Button-1>",lambda event: no())
 a.tag_bind(Apgalvojums6_ja,"<Button-1>",lambda event: yes_m())
 a.tag_bind(Apgalvojums6_ne,"<Button-1>",lambda event: no_m())
 

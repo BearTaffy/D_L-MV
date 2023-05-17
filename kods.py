@@ -12,14 +12,28 @@ gamecanva=Canvas(root,width=garums,height=platums,bg="#b366ff")
 gamecanva.pack_forget()
 bar_width = 0
 
+health_Head = 0
+health_Body = 0
+health_Legs = 0
+
+
+img_head_green = PhotoImage(file="person/Head/head_green.png")
+img_head_yellow = PhotoImage(file="person/Head/head_yellow.png")
+img_head_red = PhotoImage(file="person/Head/head_Red.png")
+img_head = PhotoImage(file="person/Head/head_normal.png")
+
+img_body_green = PhotoImage(file="person/Body/body_green.png")
+img_body_yellow = PhotoImage(file="person/Body/body_yellow.png")
+img_body_red = PhotoImage(file="person/Body/body_Red.png")
+img_body = PhotoImage(file="person/Body/body_normal.png")
+
+img_legs_green = PhotoImage(file="person/Legs/legs_green.png")
+img_legs_yellow = PhotoImage(file="person/Legs/legs_yellow.png")
+img_legs_red = PhotoImage(file="person/Legs/legs_Red.png")
+img_legs = PhotoImage(file="person/Legs/legs_normal.png")
 # info canva
 virsraksts2=infocanva.create_text(400,50,text="Mentālā veselība",fill="#660066",font=("Helvetica",30))
 go_back=infocanva.create_text(700,platums-20,text="Atgriezties",fill="#660066",font=("Helvetica",20))
-#info1=infocanva.create_text(400,140,text="Šī spēle ir par mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info2=infocanva.create_text(380,200,text="Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info3=infocanva.create_text(400,270,text="Kā spēlēt?",fill="#660066",font=("Helvetica",20))
-#info3=infocanva.create_text(370,330,text="Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību",fill="#660066",font=("Helvetica",20))
-#info4=infocanva.create_text(400,370,text="un šo faktoru sekas",fill="#660066",font=("Helvetica",20))
 rs = infocanva.create_text(400,200, text="Šī spēle ir par mentālo veselību. Šajā spelē parādīts kā dažādi faktori ietekmē mentālo veselību. Kā spēlēt? Mainot atbildes redzēsi, kā faktori ietekmē mentālo veselību un šo faktoru sekas.",width=400, fill="white",font=("helvetica",20))
 
 # home canva
@@ -56,9 +70,164 @@ def go_to_info():
 def go_to_home():
     a.pack()
     infocanva.pack_forget()
+# functions that decide what color are the body parts
+def decide_head():
+    health_Head=0
+    if slider1.get() <= 6:
+        health_Head+=2
+    elif 7 <= slider1.get() <= 9:
+        health_Head+=1
+    elif 9 < slider1.get() <= 12:
+        health_Head+=3
+    
+    if 7<=slider3.get() and slider3.get() <=10:
+        health_Head+=3
+    elif 0== slider3.get() or slider3.get() <=2:
+        health_Head+=1
+    elif 2== slider3.get() or slider3.get() <=6:
+        health_Head+=2
+
+    if 7<=slider4.get() and slider4.get() <=10:
+        health_Head+=1
+    elif 0== slider4.get() or slider4.get() <=2:
+       health_Head+=3
+    elif 2== slider4.get() or slider4.get() <=6:
+        health_Head+=2
+    
+    if slider5.get()<=2:
+        health_Head+=1
+    elif  2<slider5.get() and slider5.get() <=7:
+        health_Head+=2
+    elif 7< slider5.get() and slider5.get() >=15:
+        health_Head+=3
+    
+    if 0+yes_m()==1:
+        health_Head+=3
+    elif no_m()==2:
+        health_Head+=1
+    print(health_Head)
+    return health_Head
+    gamecanva.update()
+    a.update()
+    
+        
+def decide_chest():
+    health_Body=0
+    if slider1.get() <= 6:
+        health_Body+=2
+    elif 7 <= slider1.get() <= 9:
+        health_Body+=1
+    elif 9 < slider1.get() <= 12:
+        health_Body+=3
+
+    if slider2.get() ==0:
+        health_Body+=3
+    elif  slider2.get() <=1:
+        health_Body+=1
+    elif 2< slider2.get() <= 12:
+        health_Body+=2
+
+    if 7<=slider3.get() and slider3.get() <=10:
+        health_Body+=3
+    elif 0== slider3.get() or slider3.get() <=2:
+        health_Body+=1
+    elif 2== slider3.get() or slider3.get() <=6:
+        health_Body+=2
+
+    if 7<=slider4.get() and slider4.get() <=10:
+        health_Body+=1
+    elif 0== slider4.get() or slider4.get() <=2:
+       health_Body+=3
+    elif 2== slider4.get() or slider4.get() <=6:
+        health_Body+=2
+    
+    if slider5.get()<=2:
+        health_Body+=1
+    elif  2<slider5.get() and slider5.get() <=7:
+        health_Body+=2
+    elif 7< slider5.get() and slider5.get() >=15:
+        health_Body+=3
+    
+    
+    print(health_Body)
+    return health_Body
+    gamecanva.update()
+    a.update()
+    
+def decide_legs():
+    health_Legs=0
+    if slider1.get() <= 6:
+        health_Legs+=2
+    elif 7 <= slider1.get() <= 9:
+        health_Legs+=1
+    elif 9 < slider1.get() <= 12:
+        health_Legs+=3
+
+    if slider2.get() ==0:
+        health_Legs+=3
+    elif  slider2.get() <=1:
+        health_Legs+=1
+    elif 2< slider2.get() <= 12:
+        health_Legs+=2
+
+    if 7<=slider3.get() and slider3.get() <=10:
+        health_Legs+=3
+    elif 0== slider3.get() or slider3.get() <=2:
+        health_Legs+=1
+    elif 2== slider3.get() or slider3.get() <=6:
+        health_Legs+=2
+
+    if 7<=slider4.get() and slider4.get() <=10:
+        health_Legs+=1
+    elif 0== slider4.get() or slider4.get() <=2:
+       health_Legs+=3
+    elif 2== slider4.get() or slider4.get() <=6:
+        health_Legs+=2
+    
+    if slider5.get()<=2:
+        health_Legs+=1
+    elif  2<slider5.get() and slider5.get() <=7:
+        health_Legs+=2
+    elif 7< slider5.get() and slider5.get() >=15:
+        health_Legs+=3
+    
+    
+    print(health_Legs)
+    return health_Legs
+    gamecanva.update()
+    a.update()
 def go_to_game():
+    
+    if decide_head() ==5:
+        head = gamecanva.create_image(400,75,image=img_head_green)
+    elif decide_head() > 5 and decide_head()<=10:
+        head = gamecanva.create_image(400,75,image=img_head_yellow)
+    elif decide_head() > 10 :
+        head = gamecanva.create_image(400,75,image=img_head_red)
+    else:
+        head = gamecanva.create_image(400,75,image=img_head)
+
+    if decide_chest() ==5:
+        body = gamecanva.create_image(400,182,image=img_body_green)
+    elif decide_chest() > 5 and decide_chest()<=10:
+        body = gamecanva.create_image(400,182,image=img_body_red)
+    elif decide_chest() > 10:
+        body = gamecanva.create_image(400,182,image=img_body_yellow)
+    else:
+        body = gamecanva.create_image(400,182,image=img_body)
+
+    if decide_legs() ==5:
+        legs = gamecanva.create_image(400,344,image=img_legs_green)
+    elif decide_legs() > 5 and decide_legs()<=10:
+        legs = gamecanva.create_image(400,344,image=img_legs_red)
+    elif decide_legs() > 10:
+        legs = gamecanva.create_image(400,344,image=img_legs_yellow)
+    else:
+        legs = gamecanva.create_image(400,344,image=img_legs)
     gamecanva.pack()
     a.pack_forget()
+    gamecanva.update()
+    a.update()
 def go_to_home_from_game():
      gamecanva.pack_forget()
      a.pack()
@@ -253,6 +422,7 @@ gamecanva.tag_bind(stress1,"<Button-1>",lambda event: stress())
 gamecanva.tag_bind(vide1,"<Button-1>",lambda event: vide())
 gamecanva.tag_bind(screen_time1,"<Button-1>",lambda event: screen_time() )
 gamecanva.tag_bind(mobings1,"<Button-1>",lambda event: mobings())
+
 
 
 root.configure()

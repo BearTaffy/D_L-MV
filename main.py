@@ -17,9 +17,9 @@ gamecanva.pack_forget()
 
 bar_width = 0
 
-health_Head = -2
-health_Body = -3
-health_Legs = 4
+health_Head = 0
+health_Body = 0
+health_Legs = 0
 
 
 img_head_green = PhotoImage(file="person/Head/head_green.png")
@@ -68,6 +68,93 @@ def callback(event):
     print( "clicked at", event.x, event.y)
 
 gamecanva.bind("<Button-1>", callback)
+def score():
+    global health_Head
+    global health_Body
+    global health_Legs
+    health_Head = 0
+    health_Body = 0
+    health_Legs = 0
+    #sleep
+    if slider1.get() <= 2:
+        health_Head -= 3
+        health_Body -= 2
+        health_Legs -= 2
+    elif slider1.get() <= 4:
+        health_Head -= 2
+        health_Body -= 1
+        health_Legs -= 1
+    elif slider1.get() <= 6:
+        health_Head -= 1
+        health_Body -= 0
+        health_Legs -= 0
+    elif 7 <= slider1.get() <= 9:
+        health_Head += 2
+        health_Body += 1
+        health_Legs += 1
+    elif 9 < slider1.get() <= 12:
+        health_Head += 1
+        health_Body += 1
+        health_Legs += 0
+
+    #workout
+    if slider2.get() ==0:
+        health_Head -= 1
+        health_Body -= 2
+        health_Legs -= 2
+    elif  slider2.get() <=1:
+        health_Head += 0
+        health_Body += 1
+        health_Legs += 1
+    elif slider2.get() <= 6:
+        health_Head += 1
+        health_Body += 2
+        health_Legs += 2
+    elif slider2.get() <= 12:
+        health_Head += 1
+        health_Body += 1
+        health_Legs += 1
+
+    #stress
+    if 10 == slider3.get() or slider3.get() >=7:
+        health_Head -= 3
+        health_Body -= 2
+        health_Legs -= 2
+    elif 0 == slider3.get() or slider3.get() <=2:
+        health_Head += 1
+    elif 2== slider3.get() or slider3.get() <=6:
+        health_Head -= 1
+        health_Body -= 1
+        health_Legs -= 1
+
+    #vide
+    if 7<=slider4.get() and slider4.get() <=10:
+        health_Head += 2
+        health_Body += 1
+        health_Legs += 1
+    elif 0== slider4.get() or slider4.get() <=2:
+        health_Head -= 2
+        health_Body -= 1
+        health_Legs -= 1
+    elif 2== slider4.get() or slider4.get() <=6:
+        health_Head += 1
+        health_Body += 0
+        health_Legs += 0
+
+    #screen time
+    if slider5.get()<=2:
+        pass
+    elif  2<slider5.get() and slider5.get() <=7:
+        health_Head -= 1
+    elif 7< slider5.get() and slider5.get() >=15:
+        health_Head -= 2
+    
+    #mob
+    if 0+yes_m()==1:
+        health_Head -= 1
+        health_Body -= 1
+        health_Legs -= 1
+
 
 # Functions that move from one canvas to another
 def go_to_info():
@@ -77,27 +164,29 @@ def go_to_home():
     a.pack()
     infocanva.pack_forget()
 def go_to_game():
-    if health_Head >= 3:
+    score()
+    print(health_Head,health_Body,health_Legs)
+    if health_Head >= 2:
         head = gamecanva.create_image(400,75,image=img_head_green)
-    elif health_Head <= -3:
+    elif health_Head <= -2:
         head = gamecanva.create_image(400,75,image=img_head_red)
-    elif health_Head <= -1:
+    elif health_Head <= 1:
         head = gamecanva.create_image(400,75,image=img_head_yellow)
     else:
         head = gamecanva.create_image(400,75,image=img_head)
 
-    if health_Body >= 3:
+    if health_Body >= 2:
         body = gamecanva.create_image(400,182,image=img_body_green)
-    elif health_Body <= -3:
+    elif health_Body <= -2:
         body = gamecanva.create_image(400,182,image=img_body_red)
     elif health_Body <= -1:
         body = gamecanva.create_image(400,182,image=img_body_yellow)
     else:
         body = gamecanva.create_image(400,182,image=img_body)
 
-    if health_Legs >= 3:
+    if health_Legs >= 2:
         legs = gamecanva.create_image(400,344,image=img_legs_green)
-    elif health_Legs <= -3:
+    elif health_Legs <= -2:
         legs = gamecanva.create_image(400,344,image=img_legs_red)
     elif health_Legs <= -1:
         legs = gamecanva.create_image(400,344,image=img_legs_yellow)
@@ -110,35 +199,7 @@ def go_to_home_from_game():
      gamecanva.pack_forget()
      a.pack()
 
-def update_bar(event):
-    global bar_width
-    value = slider1.get()
-    bar_width = value * 15
-    gamecanva.coords(bar,25, 450, 25 + bar_width, 470)
-
-def update_bar2(event):
-    global bar_width
-    value = slider2.get()
-    bar_width = value * 15
-    gamecanva.coords(bar2,25, 500, 25 + bar_width, 520)
-
-def update_bar3(event):
-    global bar_width
-    value = slider3.get()
-    bar_width = value * 15
-    gamecanva.coords(bar3,25, 550, 25 + bar_width, 570)
-
-def update_bar4(event):
-    global bar_width
-    value = slider4.get()
-    bar_width = value * 15
-    gamecanva.coords(bar4,25, 600, 25 + bar_width, 620)   
-
-def update_bar5(event):
-    global bar_width
-    value = slider5.get()
-    bar_width = value * 15
-    gamecanva.coords(bar5,25, 650, 25 + bar_width, 670)   
+ 
 
 # functions that show the slider for gym and the othe yes or no
 
@@ -156,12 +217,16 @@ def sleep():
     yellow1 = "Tu guli pārāk daudz tev būtu jāguļ 7-9 stundas. Tas var šķist vienkārši, bet viens, ko var darīt, ir ievērot noteiktu gulēšanas laiku un pamošanās laiku sev. Tas var palīdzēt ķermenim izveidot savu rutīnu, tādējādi palīdzot izvairīties no pārāk liela vai pārāk maza miega. Ja vēlies labāk izgulēties, būtiski ir pārliecināties, vai istabā ir tumšs. Lai ir klusums un arī telpas temperatūra ir jums patīkama. Ja ir par karstu vai par aukstu, tad izredzes, ka īpaši labi neizgulēsies."
     green1 = "Tu guli pietiekami daudz un nekas nav jāmaina. Tā turpini!"
     block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
-    if slider1.get() <= 6:
+    if slider1.get() <= 2:
+        sleep_tx = gamecanva.create_text(650, 250, text=red1, width=200, fill="black", font=("helvetica", 15))
+    elif slider1.get() <= 4:
+        sleep_tx = gamecanva.create_text(650, 250, text=red1, width=200, fill="black", font=("helvetica", 15))
+    elif slider1.get() <= 6:
         sleep_tx = gamecanva.create_text(650, 250, text=red1, width=200, fill="black", font=("helvetica", 15))
     elif 7 <= slider1.get() <= 9:
         sleep_tx = gamecanva.create_text(650, 250, text=green1, width=200, fill="black", font=("helvetica", 15))
     elif 9 < slider1.get() <= 12:
-        sleep_tx = gamecanva.create_text(650, 250, text=yellow1, width=200, fill="black", font=("helvetica", 12))
+        sleep_tx = gamecanva.create_text(650, 250, text=green1, width=200, fill="black", font=("helvetica", 12))
 
 def gym():
     red2="Tu vingro par maz. Tev dienā vajag vingrot vismaz 30 minūtes. Vingrot var arī mājās bez speciāla inventāra."
@@ -172,7 +237,9 @@ def gym():
         gym_tx = gamecanva.create_text(650, 250, text=red2, width=200, fill="black", font=("helvetica", 15))
     elif  slider2.get() <=1:
         gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
-    elif 2< slider2.get() <= 12:
+    elif 2< slider2.get() <= 6:
+        gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
+    elif 6< slider2.get() <= 12:
         gym_tx = gamecanva.create_text(650, 250, text=yellow2, width=200, fill="black", font=("helvetica", 15))
 
 def stress():
@@ -255,19 +322,6 @@ a.create_window(125, 550, window=slider5)
 slider5.config(showvalue=True, sliderlength=20,)
 
 
-
-
-# Progressbars
-bar = gamecanva.create_rectangle(25, 450, 25 + bar_width, 450, fill='white', outline='')
-bar2= gamecanva.create_rectangle(25, 500, 25 + bar_width, 500, fill='white', outline='')
-bar3= gamecanva.create_rectangle(25, 550, 25 + bar_width, 550, fill='white', outline='')
-bar4= gamecanva.create_rectangle(25, 600, 25 + bar_width, 600, fill='white', outline='')
-bar5= gamecanva.create_rectangle(25, 650, 25 + bar_width, 650, fill='white', outline='')
-slider1.bind('<B1-Motion>', update_bar)
-slider2.bind('<B1-Motion>', update_bar2)
-slider3.bind('<B1-Motion>', update_bar3)
-slider4.bind('<B1-Motion>', update_bar4)
-slider5.bind('<B1-Motion>', update_bar5)
 
 
 # Buttons that move from one canvas to another canvas

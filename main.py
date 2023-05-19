@@ -17,6 +17,8 @@ gamecanva.pack_forget()
 
 bar_width = 0
 
+mobings = 0
+
 health_Head = 0
 health_Body = 0
 health_Legs = 0
@@ -44,7 +46,7 @@ rs = infocanva.create_text(400,250, text="Šī spēle ir par mentālo veselību.
 
 # home canva
 virsraksts=a.create_text(400,50,text="Mentālā veselība",fill="#CCCCCC",font=("Helvetica",30))
-Apgalvojums1=a.create_text(125,125,text="Cik daudz gulēji?",fill="#CCCCCC",font=("Helvetica",20))
+Apgalvojums1=a.create_text(142,125,text="Cik stundas tu guli?",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums2=a.create_text(200,220,text="Cik stundas nedeļa tu vingro?",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums3=a.create_text(190,320,text="Kāds ir tavs stresa līmenis?",fill="#CCCCCC",font=("Helvetica",20))
 Apgalvojums4=a.create_text(165,400,text="Kā tev patīk sava vide?",fill="#CCCCCC",font=("Helvetica",20))
@@ -67,7 +69,7 @@ mobings1=gamecanva.create_text(85,300,text="Mobings",fill="#CCCCCC",font=("Helve
 def callback(event):
     print( "clicked at", event.x, event.y)
 
-gamecanva.bind("<Button-1>", callback)
+a.bind("<Button-1>", callback)
 def score():
     global health_Head
     global health_Body
@@ -105,11 +107,11 @@ def score():
     elif  slider2.get() <=1:
         health_Head += 0
         health_Body += 1
-        health_Legs += 1
+        health_Legs += 0
     elif slider2.get() <= 6:
         health_Head += 1
         health_Body += 2
-        health_Legs += 2
+        health_Legs += 1
     elif slider2.get() <= 12:
         health_Head += 1
         health_Body += 1
@@ -150,10 +152,10 @@ def score():
         health_Head -= 2
     
     #mob
-    if 0+yes_m()==1:
-        health_Head -= 1
-        health_Body -= 1
-        health_Legs -= 1
+    if mobings==1:
+        health_Head -= 0
+        health_Body -= 0
+        health_Legs -= 0
 
 
 # Functions that move from one canvas to another
@@ -204,11 +206,13 @@ def go_to_home_from_game():
 # functions that show the slider for gym and the othe yes or no
 
 def yes_m():
-    mobings=1
-    return mobings
+    global mobings
+    mobings = 1
 def no_m():
-    mobings=2
-    return mobings
+    global mobings
+    mobings = 0
+
+
 
 
 # the functions that are the ones that show the results
@@ -235,7 +239,7 @@ def gym():
     block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
     if slider2.get() ==0:
         gym_tx = gamecanva.create_text(650, 250, text=red2, width=200, fill="black", font=("helvetica", 15))
-    elif  slider2.get() <=1:
+    elif  slider2.get() <=2:
         gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
     elif 2< slider2.get() <= 6:
         gym_tx = gamecanva.create_text(650, 250, text=green2, width=200, fill="black", font=("helvetica", 15))
@@ -275,16 +279,16 @@ def screen_time():
         screen_time_tx = gamecanva.create_text(650, 250, text=green5, width=200, fill="black", font=("helvetica", 15))
     elif  2<slider5.get() and slider5.get() <=7:
         screen_time_tx = gamecanva.create_text(650, 250, text=yellow5, width=200, fill="black", font=("helvetica", 15))
-    elif 7< slider5.get() and slider5.get() >=15:
+    elif 7< slider5.get() and slider5.get() <=15:
         screen_time_tx = gamecanva.create_text(650, 250, text=red5, width=200, fill="black", font=("helvetica", 15))
-def mobings():
+def mobings_j():
     green6="Tas labi ka pret tevi neviens nedara mobingu!"
     red6="Ja pats nevari tikt galā ar mobingu, tad lūdzu palīdzību draugiem, vecākiem un skolotājiem!"
     block = gamecanva.create_rectangle(550, 50, 750, 450, fill="white")
-    if 0+yes_m()==1:
-        mobings_tx = gamecanva.create_text(650, 250, text=red6, width=200, fill="black", font=("helvetica", 15))
-    elif no_m()==2:
+    if mobings==0:
         mobings_tx = gamecanva.create_text(650, 250, text=green6, width=200, fill="black", font=("helvetica", 15))
+    else:
+        mobings_tx = gamecanva.create_text(650, 250, text=red6, width=200, fill="black", font=("helvetica", 15))
 style = {"troughcolor": "#505050", "sliderlength": 30, "sliderrelief": "flat", "background": "#4169E1"}
 
 
@@ -330,7 +334,6 @@ infocanva.tag_bind(go_back,"<Button-1>", lambda event: go_to_home())
 a.tag_bind(game_bt,"<Button-1>",lambda event: go_to_game())
 gamecanva.tag_bind(go_back_home,"<Button-1>",lambda event: go_to_home_from_game())
 
-# Buttons that show and hide the gym slider and the other yes or no
 a.tag_bind(Apgalvojums6_ja,"<Button-1>",lambda event: yes_m())
 a.tag_bind(Apgalvojums6_ne,"<Button-1>",lambda event: no_m())
 
@@ -340,7 +343,7 @@ gamecanva.tag_bind(gym1,"<Button-1>",lambda event: gym())
 gamecanva.tag_bind(stress1,"<Button-1>",lambda event: stress())
 gamecanva.tag_bind(vide1,"<Button-1>",lambda event: vide())
 gamecanva.tag_bind(screen_time1,"<Button-1>",lambda event: screen_time() )
-gamecanva.tag_bind(mobings1,"<Button-1>",lambda event: mobings())
+gamecanva.tag_bind(mobings1,"<Button-1>",lambda event: mobings_j())
 
 
 root.configure()
